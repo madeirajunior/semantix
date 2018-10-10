@@ -1,0 +1,19 @@
+Respostas:
+
+1)
+Cache ou persistência são técnicas de otimização para cálculos Spark (iterativos e interativos). Eles ajudam a salvar resultados parciais intermediários para que possam ser reutilizados nos estágios subsequentes. Esses resultados provisórios como RDDs são, portanto, mantidos na memória (padrão) ou em armazenamentos  em disco
+
+2)
+MapReduce é um dos mais antigos e mais conhecidos frameworks para clusterização. Ele segue o modelo de programação funcional e executa a sincronização explícita por meio de etapas computacionais. O Spark é um framework para clusterização que executa processamento em memória - sem utilização de escrita e leitura em disco rígido - com o objetivo de ser superior aos motores de busca baseados em disco como o MapReduce.
+
+3)
+O spark context configura os serviços internos  e estabelece uma conexão com um ambiente de execução do spark.Uma vez uma vez o contexto criado, você pode usá-lo para criar RDDs  e variaveis de difusão , acessar os serviços do Spark e executar trabalhos (até que SparkContextseja interrompido
+
+4)
+Resilient Distributed Datasets (RDD): abstraem um conjunto de objetos distribuídos no cluster, geralmente executados na memória principal. Estes podem estar armazenados em sistemas de arquivo tradicional, no HDFS (HadoopDistributed File System) e em alguns Banco de Dados NoSQL, como Cassandra e HBase. Ele é o objeto principal do modelo de programação do Spark, pois são nesses objetos que serão executados os processamentos dos dados.
+
+5)
+Quando fazendo uma agregação utilizando reduceByKey, Spark sabe que pode realizar a operação passada como parâmetro em todos os elementos de mesma chave em cada partição para obter um resultado parcial antes de passar esses dados para os executores que vão calcular o resultado final, resultando em um conjunto menor de dados sendo transferido. Por outro lado, ao usar groupByKey e aplicar a agregação em seguida, o cálculo de resultados parciais não é realizado, dessa forma um volume muito maior de dados é desnecessariamente transferido através dos executores podendo, inclusive, ser maior que a quantidade de memória disponível para o mesmo, o que cria a necessidade de escrita dos dados em disco e resulta em um impacto negativo bastante significante na performance.
+
+6)
+Nesse código, um arquivo-texto é lido (linha 1). Em seguida, cada linha é "quebrada" em uma sequência de palavras e as sequencias correspondentes a cada linha são transformadas em uma única coleção de palavras (2). Cada palavra é então transformada em um mapeamento de chave-valor, com chave igual à própria palavra e valor 1 (3). Esses valores são agregados por chave, através da operação de soma (4). Por fim, o RDD com a contagem de cada palavra é salvo em um arquivo texto (5).
